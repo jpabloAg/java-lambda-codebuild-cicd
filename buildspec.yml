@@ -17,4 +17,3 @@ phases:
     commands:
       - echo "Deploying to AWS Lambda..."
       - aws lambda update-function-code --function-name javaLambdaCodeBuild --zip-file fileb://target/java-aws-lambda-codebuild-1.0-SNAPSHOT.jar
-      - aws lambda update-function-configuration --function-name javaLambdaCodeBuild --handler org.example.LambdaHandler::handleRequest
