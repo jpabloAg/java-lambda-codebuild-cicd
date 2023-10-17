@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+  pre_build:
+    commands:
+      - echo "Installing Maven..."
+      - apt-get -y update
+      - apt-get -y install maven
+  build:
+    commands:
+      - echo "Building the Lambda function..."
+      - mvn clean install
+  post_build:
+    commands:
+      - echo "Deploying to AWS Lambda..."
+      - aws lambda update-function-code --function-name javaLambdaCodeBuild --zip-file fileb://target/java-aws-lambda-codebuild-1.0-SNAPSHOT.jar
+      - aws lambda update-function-configuration --function-name javaLambdaCodeBuild --handler org.example.LambdaHandler::handleRequest
